@@ -304,19 +304,38 @@ export default function BookDetailPage() {
             {/* Actions */}
             <div className="flex gap-3 flex-wrap">
               {book.isAvailable ? (
-                <Button
-                  onClick={handleRent}
-                  disabled={actionLoading || !session}
-                  size="lg"
-                  className="flex-1 sm:flex-none"
-                >
-                  {actionLoading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <BookOpen className="mr-2 h-4 w-4" />
-                  )}
-                  {session ? "Rent this book" : "Sign in to rent"}
-                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      disabled={actionLoading || !session}
+                      size="lg"
+                      className="flex-1 sm:flex-none"
+                    >
+                      {actionLoading ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <BookOpen className="mr-2 h-4 w-4" />
+                      )}
+                      {session ? "Rent this book" : "Sign in to rent"}
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="max-w-[90vw] sm:max-w-lg">
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Rent this book?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        You are about to rent &quot;{book.title}&quot; by{" "}
+                        {book.author}. You can return it anytime from your
+                        profile.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={handleRent}>
+                        Rent
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               ) : isRentedByMe ? (
                 <Button
                   onClick={handleReturn}

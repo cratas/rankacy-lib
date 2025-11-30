@@ -218,21 +218,37 @@ export function BookCard({ book, onUpdate }: BookCardProps) {
       </CardContent>
       <CardFooter className="flex gap-2 px-3 sm:px-6 py-3 sm:py-4">
         {book.isAvailable ? (
-          <Button
-            onClick={handleRent}
-            disabled={loading || !session}
-            className="flex-1 h-8 sm:h-10 text-xs sm:text-sm"
-            size="sm"
-          >
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <>
-                <BookOpen className="mr-1.5 h-3 w-3 sm:h-4 sm:w-4" />
-                {session ? "Rent" : "Sign in"}
-              </>
-            )}
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                disabled={loading || !session}
+                className="flex-1 h-8 sm:h-10 text-xs sm:text-sm"
+                size="sm"
+              >
+                {loading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    <BookOpen className="mr-1.5 h-3 w-3 sm:h-4 sm:w-4" />
+                    {session ? "Rent" : "Sign in"}
+                  </>
+                )}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="max-w-[90vw] sm:max-w-lg">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Rent this book?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  You are about to rent &quot;{book.title}&quot; by{" "}
+                  {book.author}. You can return it anytime from your profile.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleRent}>Rent</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         ) : isRentedByMe ? (
           <Button
             onClick={handleReturn}
