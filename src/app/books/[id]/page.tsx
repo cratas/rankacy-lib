@@ -268,7 +268,7 @@ export default function BookDetailPage() {
               </div>
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
-                <span>Owner: {book.owner.name || "Unknown"}</span>
+                <span>Added by {book.owner.name || "Unknown"}</span>
               </div>
             </div>
 

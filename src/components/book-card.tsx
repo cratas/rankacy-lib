@@ -199,7 +199,7 @@ export function BookCard({ book, onUpdate }: BookCardProps) {
             </AvatarFallback>
           </Avatar>
           <span className="truncate">
-            Owner: {book.owner.name || "Unknown"}
+            Added by {book.owner.name || "Unknown"}
           </span>
         </div>
         {!book.isAvailable && book.currentRental && (
